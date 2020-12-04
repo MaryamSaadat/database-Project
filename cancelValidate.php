@@ -6,56 +6,42 @@ if (!$conn)
 {
     die("Database conn Failed" . mysqli_error($conn));
 }
-$select_db = mysqli_select_db($conn, 'hotel management');
+$select_db = mysqli_select_db($conn, 'HotelManagement');
 if (!$select_db){
     die("Database Selection Failed" . mysqli_error($conn));
 }
 
-//WANT USERNAME AND BOOKING DATE FROM THE INPUT
-if (isset($_POST['user_name']))
+//WANT USERNAME AND BOOKING ID FROM THE INPUT
+if (isset($_POST['user_name']) and isset($_POST['book_id']))
 {
     $username = $_POST['user_name'];
-    //echo $username;
-    //FIND THE USERNAME IN GUEST TABLE AND EXTRACT THE GUEST ID CORESPONDING TO IT
-    //THERE WILL ONLY BE ONE SUCH ENTRY SINCE USERNAME IS UNIQUE SO NO NEED FOR LOOPING
-    $q = "SELECT * from `guest` WHERE username='$username'";
-    $r = mysqli_query($conn, $q) or die(mysqli_error($conn));
-    if ($row = mysqli_fetch_assoc($r)) 
-    {
-        $grow = $row;
-        $g_id =  $grow['guestID'];
-        //echo $g_id;
-        //echo "<br /> ID: " .$grow['roomID']. "<br /> Price: ".$grow['price']. "<br /> Type: ".$frow['type']. "<br /> Available: ".$frow['available']. "<br />";
+    $books    = $_POST['book_id'];
 
+    echo $username;
+    echo $books;
+
+    //USE THIS BOOK ID TO GET THE ROOM ID 
+    $q1 = "SELECT * FROM `bookings` WHERE `bookingID` = '$books'";
+    $r1 = mysqli_query($conn, $q1);
+
+    while ($row = mysqli_fetch_assoc($r1)) 
+    {
+    $room_id =  $row['roomID'];
     }
 
-    //USING THIS GUEST ID, SEARCH THE BOOKING TABLE AND EXTRACT THE ROOM ID CORRESPONDING TO IT AND THEN 
-   
-    $q2 = "SELECT * from `bookings` WHERE  guestID='$g_id'";
-    $r2 = mysqli_query($conn, $q2) or die(mysqli_error($conn));
-    if ($row2 = mysqli_fetch_assoc($r2)) 
-    {
-        $rrow = $row2;
-        $r_id =  $rrow['roomID'];
-        $b_id = $rrow['bookingID'];
-        //echo $r_id;
-        //echo $g_id;
-        //echo "<br /> ID: " .$grow['roomID']. "<br /> Price: ".$grow['price']. "<br /> Type: ".$frow['type']. "<br /> Available: ".$frow['available']. "<br />";
-
-    }
-    //DELETE THIS BOOKING RECORD
-    // sql to delete a record
-    $q3 = "DELETE FROM bookings WHERE bookingID='$b_id'";
+    //DELETE THE TUPLE WITH THIS BOOKING ID
+    $q2 = "DELETE FROM `bookings` WHERE `bookings`.`bookingID` = '$books'";
     mysqli_query($conn, $q2);
 
-    //USING THIS ROOMID, SERACH THE ROOMS AND MAKE STATUS "N" FROM "Y"
-    $up = "UPDATE `rooms` SET available = 'Y' WHERE roomID='$r_id'";
+    //UPDATE ROOM AVAILABILITY STATUS
+    $up = "UPDATE `rooms` SET available = 'Y' WHERE roomID='$room_id'";
     if(mysqli_query($conn, $up))
     {
        echo "BOOKING CANCELLED SUCCESSFULLY";
        header('Location:guest.php?successfulCancel=1');
     }
 
+    
 }
 
 
