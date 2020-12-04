@@ -16,23 +16,24 @@ $select_db = mysqli_select_db($conn, 'HotelManagement');//<---CHANGE TO THE NAME
 if (!$select_db){
     die("Database Selection Failed" . mysqli_error($conn));
 }
-
-if ( isset($_POST['username']))
+if ( isset($_POST['level']) and isset($_POST['percentage']))
 {
     // Assigning POST values to variables of start date and finish date. 
-        $employeeName = $_POST['username'];
-        $query = "UPDATE employee SET status= 'fired' WHERE username LIKE '$employeeName'";
+    echo hello;
+        $level = $_POST['level'];
+        $percentage = $_POST['percentage'];
+        $increment = ($percentage/100) + 1;
+        echo $increment;
+
+        $query =  "UPDATE `employee` SET `salary`= salary * $increment\n"
+
+                . "WHERE level = '$level' and status = 'currently hired'";
+
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-        if ($result == 0)
-        {
-        header('Location:employeeDelete.php?noemployee=1'); 
-        }
-        else
-        {
-            $sql = "DELETE FROM `account` WHERE `username` LIKE '$employeeName'";
-            $result2 = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-            header('Location:employeeDelete.php?deletionSuccessful=1'); 
-        }
+        
+        header('Location:employeeSalIncrement.php?altered=1'); 
+        
+        
 }
 
     mysqli_close($conn);

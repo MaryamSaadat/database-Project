@@ -17,14 +17,21 @@ if (!$select_db){
     die("Database Selection Failed" . mysqli_error($conn));
 }
 
-if ( isset($_POST['firstTime']) and isset($_POST['secondTime']))
+if ( isset($_POST['firstTime']) and isset($_POST['secondTime']) and isset($_POST['size']) )
 {
     // Assigning POST values to variables of start date and finish date. 
     $sd = $_POST['firstTime'];
     $fd = $_POST['secondTime'];
+    $roomType = $_POST['size'];
 
         // CHECK FOR THE RECORD FROM TABLE, IF RECORD EXISTS, TELL THE USER THAT USERNAME EXISTS
-        $query = "SELECT *  FROM `bookings` WHERE `bookingDate` BETWEEN '$sd' AND '$fd'";
+        $query = "SELECT * \n"
+
+        . "FROM bookings\n"
+
+        . "WHERE bookings.bookingDate BETWEEN '$sd' AND '$fd' \n"
+
+        . "AND bookings.roomID IN (SELECT rooms.roomID FROM rooms WHERE rooms.type = '$roomType')";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
         $count = mysqli_num_rows($result);
         // IF NOTHING WAS FOUND, RETURN THAT NO BOOKING DATES WERE FOUND

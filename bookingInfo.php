@@ -23,7 +23,23 @@
 			<tr>
 	            <td align="middle"><label for="secondTime">To Date:</label></td>
 	            <td><input type="date" name="secondTime" id="sTime" placeholder="yyyy-mm-dd" /></td>
-            </tr>
+			</tr>
+			
+			<tr>
+				<td align="left"><h2>Please select the type of rooms you want to see the booking for :</h2></td>
+			</tr>
+			<tr>
+	            <td align="right"><label for="size">Type:</label></td>
+	            <td align="left">
+	            	<select name="size">
+	            		<option value="S">single</option>
+	            		<option value="D">double</option>
+	            		<option value="Q">queen</option>
+	            		<option value="K">king</option>
+	            	</select>
+	            </td>
+			</tr>
+
             <tr>
 				<td colspan = "2" align="right"><input type="submit"></td>
 			</tr>
