@@ -9,7 +9,7 @@ if (!$conn)
 {
     die("Database conn Failed" . mysqli_error($conn));
 }
-$select_db = mysqli_select_db($conn, 'hotel management');
+$select_db = mysqli_select_db($conn, 'HotelManagement');
 if (!$select_db){
     die("Database Selection Failed" . mysqli_error($conn));
 }
@@ -85,17 +85,34 @@ if(mysqli_num_rows($result) > 0 )
     $res = mysqli_query($conn, $get_data) or die(mysqli_error($conn));
     $num = mysqli_num_rows($res);
     //echo $num;
-    $p_key = $num + 1;
+    //$p_key = $num + 1;
 
     //INSERT ALL THIS EXTRACTED INFO IN BOOKING TABLE
     $sql2 = "INSERT INTO `bookings` (`bookingID`,`guestID`, `roomID`,`bookingDate`, `startDate`, `endDate`) 
-    VALUES ('$p_key','$g_id', '$r_id', '$book_date', '$check_in', '$check_out')";
+    VALUES (NULL,'$g_id', '$r_id', '$book_date', '$check_in', '$check_out')";
 
             $q2 = mysqli_query  ($conn,$sql2) or die(mysqli_error($conn));
             if ($q2 == 1) 
             {
-            echo "Room Booked Successfully";
-            header('Location:guest.php?successfulCreation=1');
+                $q3 = "SELECT * from `bookings` WHERE  guestID = '$g_id' AND roomID='$r_id'";
+                $r3 = mysqli_query($conn, $q3) or die(mysqli_error($conn));
+                
+
+                if ($ro = mysqli_fetch_assoc($r3)) 
+                {
+                    $boo = $ro;
+                    $your_booking_id =  $boo['bookingID'];
+                    $_SESSION['to_display'] = $your_booking_id;
+                } 
+
+            //echo "Room Booked Successfully";
+                
+            //echo "Your booking ID is: ";
+
+            //echo $your_booking_id;
+
+            
+            header('Location:bookDone.php?successfulCreation=1');
             
             } 
     //UPDATE THE STATUS OF THE ROOM TO "N"
