@@ -11,13 +11,10 @@
 <h1> BOOK A ROOM! </h1>
 
 <?php
-        if (isset( $_GET['passwordFailure']) ) 
+        if (isset( $_GET['passwordFailure'])) 
         {
             echo "<p>THIS ROOM IS UNAVAILABLE. PLEASE SELECT AGAIN.</p>";
         }
-
-        
-
         
 ?>
 
@@ -54,6 +51,70 @@
 <input type="submit">
 </form>
 
+
+<h3 style="color:white;"> NUMBER OF AVAILABLE ROOMS! </h3>
+
+<p>
+<?php
+
+session_start();
+$user_ =  $_SESSION['user'];
+$conn = mysqli_connect('localhost', 'root', '');
+if (!$conn)
+{
+    die("Database conn Failed" . mysqli_error($conn));
+}
+$select_db = mysqli_select_db($conn, 'HotelManagement');
+if (!$select_db){
+    die("Database Selection Failed" . mysqli_error($conn));
+}
+
+$get_data = "SELECT * from `rooms` WHERE `type`='S' AND `available` = 'Y'"; 
+$res = mysqli_query($conn, $get_data) or die(mysqli_error($conn));
+$num = mysqli_num_rows($res); //COUNT OF SINGLE AVAILABLE ROOMS
+
+$get_ = "SELECT * from `rooms` WHERE `type`='D' AND `available` = 'Y'"; 
+$res_ = mysqli_query($conn, $get_) or die(mysqli_error($conn));
+$num_ = mysqli_num_rows($res_); //COUNT OF DOUBLE AVAILABLE ROOMS
+
+$get_3 = "SELECT * from `rooms` WHERE `type`='Q' AND `available` = 'Y'"; 
+$res_3 = mysqli_query($conn, $get_3) or die(mysqli_error($conn));
+$num_3 = mysqli_num_rows($res_3); //COUNT OF QUEEN AVAILABLE ROOMS
+
+$get_4 = "SELECT * from `rooms` WHERE `type`='K' AND `available` = 'Y'"; 
+$res_4 = mysqli_query($conn, $get_4) or die(mysqli_error($conn));
+$num_4 = mysqli_num_rows($res_4); //COUNT OF KING AVAILABLE ROOMS
+
+
+//echo "<h3> NUMBER OF AVAILABLE ROOMS </h3> ";
+
+echo "<table align = 'center' border='1'>
+<tr>
+<th>SINGLE</th>
+<th>DOUBLE</th>
+<th>QUEEN</th>
+<th>KING</th>
+</tr>";
+
+
+    echo "<tr>";
+    echo "<td>" . $num . "</td>";
+    echo "<td>" . $num_. "</td>";
+    echo "<td>" . $num_3. "</td>";
+    echo "<td>" . $num_4. "</td>";
+    echo "</tr>";
+
+ 
+echo "</table>";
+
+mysqli_close($conn);
+
+
+?>
+</p>
+
+
+
 <table class = "center">
   <tr>
     <th>Room Type</th>
@@ -79,6 +140,9 @@
 
 
 <!-- partial -->
+<p>   
+  <h3 style="color:white;">  Go back to main guest page <a href ="guest.php">click.</a> </h3>
+</p>
   
 </body>
 </html>
