@@ -30,14 +30,17 @@ ob_start();
 	<?php
         if (isset( $_GET['noCheckIn']) ) {
             echo "<p>Check Out Failed, no Check In on this booking ID</p>";
-		}
-		if (isset( $_GET['failedAccess']) ) {
-            echo "<p>Failed to access database, try again</p>";
-		}
-		if (isset( $_GET['successfulCheckOut']) ) {
-            echo "<p>Guest Checked Out successfully</p>";
-		}
-    ?>
+	}
+	if (isset( $_GET['failedAccess']) ) {
+    		echo "<p>Failed to access database, try again</p>";
+	}
+	if (isset( $_GET['successfulCheckOut']) ) {
+   		echo "<p>Guest Checked Out successfully</p>";
+	}
+	if (isset($_GET['noPayment'])) {
+		echo "<p>Check Out Failed, Payment not done.</p>"
+	}
+    	?>
 
 	<p>Enter the following details:</p>
 	<form action = "checkOutValidate.php" method ="get">
