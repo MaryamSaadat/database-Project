@@ -1,0 +1,17 @@
+body {
+  background-color:LightBlue; 
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+h2{
+  font-family: arial;
+  color:#383757;
+}
+h3{
+  font-family: arial;
+  color:#383757;
+}
+table{
+  margin-left: auto;
+  margin-right: auto;
+}

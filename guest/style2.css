@@ -1,0 +1,38 @@
+body {
+  background-color: LightBlue ; 
+  text-align: center;
+  background-image: url('https://miro.medium.com/max/2800/1*7jDLREu-uME27nRvzwckBw.jpeg');
+  backdrop-filter: blur(5px);
+  
+}
+h2{
+  font-family: arial;
+  color: #756ac4;
+}
+h3 {
+  font-family: arial;
+  color: white;
+}
+h1 {
+  font-family: arial;
+  color: black;
+}
+table{
+  padding: 15px;
+  text-align: left;
+  border-spacing: 5px;
+  color: white;
+  border: 1px solid white;
+}
+table{
+  margin-left: auto;
+  margin-right: auto;
+}
+label{
+  color: white;
+}
+input{
+  box-sizing: border-box;
+  background-color: 	white;
+  color: black;
+}
