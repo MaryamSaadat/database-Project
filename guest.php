@@ -55,7 +55,7 @@
 		</p>
 
 		<p>
-		<form method="post" action="">
+		<form method="post" action="seeRewards.php">
 			<button type="submit">VIEW REWARDS</button>
 		</form>
 		</p>
