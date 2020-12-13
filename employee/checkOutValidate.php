@@ -13,10 +13,20 @@ $sql1 = "SELECT * FROM `checkIn` WHERE bookingID = '$bID'";
 $result = mysqli_query($conn, $sql1) or die(mysqli_error($conn));
 $count = mysqli_num_rows($result);
 
+$sequel = "SELECT * FROM `payments` WHERE bookingID = '$bID'";
+$niklo = mysqli_query($conn, $sql1) or die(mysqli_error($conn));
+$stat = $niklo -> fetch_assoc();
+$stat = $stat['paymentStatus'];
+
+
 if ($count == 0) {
 	echo "Check Out Failed, no Check In on this booking ID";
 	header('Location:checkOut.php?noCheckIn=1');
+}
 
+else if ($stat == 'N') {
+	echo "Check Our Failed, payment not done";
+	header('Location:checkOut.php?noPayment=1');
 }
 
 else {
