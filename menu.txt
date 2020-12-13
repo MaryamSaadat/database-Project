@@ -1,3 +1,0 @@
-Biryani,100,Y
-Pizza,200,Y
-Kofte,300,Y
