@@ -111,6 +111,13 @@ if(mysqli_num_rows($result) > 0 )
 
             //echo $your_booking_id;
 
+            //---> LATEST EDITION <---------
+            //ADD BOOKING ID AND GUEST ID TO THE REWARDS NEW TABLE AS WELL
+
+            $q4 = "INSERT INTO `rewardnew` (`bookingID`, `guestID`) VALUES ('$your_booking_id', '$g_id')";
+            mysqli_query($conn, $q4) or die(mysqli_error($conn));
+
+
             
             header('Location:bookDone.php?successfulCreation=1');
             
@@ -118,6 +125,10 @@ if(mysqli_num_rows($result) > 0 )
     //UPDATE THE STATUS OF THE ROOM TO "N"
     $up = "UPDATE `rooms` SET available = 'N' WHERE roomID='$r_id'";
     mysqli_query($conn, $up);
+    
+
+    
+    
     
 }
 
