@@ -24,9 +24,8 @@ if (isset($_POST['o_date']) and isset($_POST['book_id']) and isset($_POST['food_
     $res_0 = mysqli_query($conn, $sql_0) or die(mysqli_error($conn));
     $num_0 = mysqli_num_rows($res_0);
 
-    if ($num_0==0){
-       
-   
+    if ($num_0==0)
+    {
         header('Location:orderFood.php?Error=1');
     }
 
