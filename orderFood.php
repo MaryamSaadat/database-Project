@@ -6,6 +6,13 @@
  <body>
 
  <h2> ORDER FOOD! </h2>
+  <?php
+        if (isset( $_GET['Error'])) 
+        {
+            echo "<p>THIS BOOKING ID DOES NOT EXIST.</p>";
+        }
+        
+?>
 <p>
 <h3> FOOD ITEMS AVAILABLE</h3>
 </p>
